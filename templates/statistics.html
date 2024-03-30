@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Statistics</title>
+</head>
+<body>
+    <h1>System Statistics</h1>
+    <div id="system_metrics"></div>
+    <button onclick="getSystemMetrics()">Get System Metrics</button>
+
+    <script>
+        function getSystemMetrics() {
+            // Send AJAX request to Flask route to get system metrics
+            fetch('/get_system_metrics')
+                .then(response => response.text())
+                .then(data => {
+                    // Update content of div with system metrics
+                    document.getElementById('system_metrics').innerHTML = data;
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Allocation</title>
+</head>
+<body>
+    <h1>Resource Allocation</h1>
+    <form action="/allocation" method="POST">
+        <label for="process_name">Select Process:</label>
+        <select name="process_name" id="process_name">
+            <option value="Code.exe">VsCode</option>
+            <option value="chrome.exe">Chrome</option>
+            <option value="Notepad.exe">Notepad</option>
+            <!-- Add more options based on your dataset -->
+        </select><br><br>
+        <label for="priority_class">Select Priority:</label>
+        <select name="priority_class" id="priority_class">
+            <option value="AboveNormal">Above Normal</option>
+            <option value="Normal">Normal</option>
+            <option value="BelowNormal">Below Normal</option>
+            <option value="High">High</option>
+            <option value="RealTime">Real Time</option>
+            <!-- Add more priority options if needed -->
+        </select><br><br>
+        <input type="submit" value="Set Priority">
+    </form>    
+</body>
+</html>
