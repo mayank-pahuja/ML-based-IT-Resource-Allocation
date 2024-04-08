@@ -1,0 +1,131 @@
+Chrome
+{
+  "Chrome": {
+    "MemoryUsage": 1500,
+    "DiskWriteBytes": 	.789,
+    "NetworkSentBytes": 25.678,
+    "SystemCPUUsage": 0.261506438,
+    "SystemMemoryUsage": 1126,
+    "SystemDiskWriteBytes": 348650.5513,
+    "SystemNetworkSentBytes": 45.76798378
+  }
+}
+ 
+    Notepad
+
+  "MemoryUsage": 1126,
+  "DiskWriteBytes": 348650.5513,
+  "NetworkSentBytes": 45.76798378,
+  "SystemCPUUsage": 0.261506438,
+  "SystemMemoryUsage": 1126,
+  "SystemDiskWriteBytes": 348650.5513,
+
+Memory Usage: 10244096
+Disk Write Bytes: 348650.5513
+Network Sent Bytes: 45.76798378
+System CPU Usage: 0.261506438
+System Memory Usage: 1126
+System Disk Write Bytes: 348650.5513
+System Network Sent Bytes: 45.76798378
+
+
+Chrome:
+
+CPUUsage: Varies between 0.015625 to 5.859375
+MemoryUsage: Varies between 9113600 to 168833024
+DiskWriteBytes: Varies
+NetworkSentBytes: Varies
+Timestamp: 03-04-2024 09:18 to 03-04-2024 09:21
+
+Code:
+
+CPUUsage: Varies between 0.015625 to 11.078125
+MemoryUsage: Varies between 16621568 to 68296704
+DiskWriteBytes: Varies
+NetworkSentBytes: Varies
+Timestamp: 03-04-2024 09:18 to 03-04-2024 09:21
+
+Notepad:
+
+CPUUsage: Varies between 1.03125 to 1.203125
+MemoryUsage: Varies between 160722944 to 160673792
+DiskWriteBytes: Varies
+NetworkSentBytes: Varies
+Timestamp: 03-04-2024 09:18 to 03-04-2024 09:21
+
+WINWORD:
+
+CPUUsage: Varies between 0.4375 to 0.875
+MemoryUsage: Varies between 174817280 to 182894592
+DiskWriteBytes: Varies
+NetworkSentBytes: Varies
+Timestamp: 03-04-2024 09:18 to 03-04-2024 09:21
+
+
+# Define a function to collect data for specific processes
+function Collect-ProcessData {
+    # Define process names
+    $processNames = @("chrome", "code", "WINWORD", "EXCEL", "POWERPNT", "teams","studio64", "spotify","notepad" )
+
+    # Initialize an empty array to store process data
+    $processData = @()
+
+    # Get system-level performance counters
+    $cpuCounter = Get-Counter -Counter "\Processor(_Total)\% Processor Time" -ErrorAction SilentlyContinue
+    $memoryCounter = Get-Counter -Counter "\Memory\Available MBytes" -ErrorAction SilentlyContinue
+    $diskCounter = Get-Counter -Counter "\LogicalDisk(_Total)\Disk Bytes/sec" -ErrorAction SilentlyContinue
+    $networkCounter = Get-Counter -Counter "\Network Interface(*)\Bytes Total/sec" -ErrorAction SilentlyContinue
+
+    # Iterate through each process name
+    foreach ($processName in $processNames) {
+        # Get processes for the current process name
+        $processes = Get-Process -Name $processName -ErrorAction SilentlyContinue
+
+        # Iterate through each process
+        foreach ($process in $processes) {
+            # Create a custom object to store process data
+            $processData += [PSCustomObject]@{
+                "ProcessName" = $process.Name
+                "CPUUsage" = $process.CPU
+                "MemoryUsage" = $process.WorkingSet
+                "DiskWriteBytes" = if ($diskCounter) { ($diskCounter.CounterSamples | Measure-Object -Property CookedValue -Sum).Sum } else { 0 }
+                "NetworkSentBytes" = if ($networkCounter) { ($networkCounter.CounterSamples | Measure-Object -Property CookedValue -Sum).Sum } else { 0 }
+                "Timestamp" = Get-Date
+                "SystemCPUUsage" = if ($cpuCounter) { ($cpuCounter.CounterSamples | Measure-Object -Property CookedValue -Sum).Sum } else { 0 }
+                "SystemMemoryUsage" = if ($memoryCounter) { ($memoryCounter.CounterSamples | Measure-Object -Property CookedValue -Sum).Sum } else { 0 }
+                "SystemDiskWriteBytes" = if ($diskCounter) { ($diskCounter.CounterSamples | Measure-Object -Property CookedValue -Sum).Sum } else { 0 }
+                "SystemNetworkSentBytes" = if ($networkCounter) { ($networkCounter.CounterSamples | Measure-Object -Property CookedValue -Sum).Sum } else { 0 }
+            }
+        }
+    }
+
+    # Output process data
+    $processData
+}
+
+# Main loop to continuously collect and process data
+while ($true) {
+    # Collect process data for Chrome, VS Code, Microsoft Word, Excel, and PowerPoint
+    $data = Collect-ProcessData
+
+    # Export collected data to CSV
+    $data | Export-Csv -Path 'C:\mini\lastfinal.csv' -Append -NoTypeInformation
+
+    # Adjust sleep time based on your desired interval
+    Start-Sleep -Seconds 30  
+}
+
+
+160722944
+
+39346345
+
+53915
+
+5
+
+590
+
+161564
+
+55550
