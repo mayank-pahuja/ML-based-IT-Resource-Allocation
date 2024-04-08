@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Stats Visualization</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Real-time Stats Visualization</h1>
+    <div id="realtime-plot"></div>
+
+    <script>
+        function updatePlot() {
+            fetch("/realtime_data")
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch data");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    // Extract data values
+                    const categories = data.map(item => item.resource);
+                    const values = data.map(item => item.usage);
+
+                    // Define Plotly trace
+                    const trace = {
+                        x: categories,
+                        y: values,
+                        type: "bar",
+                    };
+
+                    // Update or create the Plotly plot
+                    Plotly.react("realtime-plot", [trace], {
+                        title: "Real-time Stats",
+                        xaxis: { title: "Resource" },
+                        yaxis: { title: "Usage" },
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+
+        // Initial plot update
+        updatePlot();
+
+        // Update the plot every 2 seconds
+        setInterval(updatePlot, 2000);
+    </script>
+</body>
+</html>
