@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <!-- Add any additional CSS or JavaScript libraries if needed -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-    <h1>Welcome to CPU Usage Prediction</h1>
-    <p>This is a simple web application to predict CPU usage based on input data.</p>
-    <p>You can navigate to the following pages:</p>
-    <ul>
-        <li><a href="/predictions">Predictions</a> - Enter input data to get CPU usage predictions.</li>
-        <li><a href="/statistics">Statistics</a> - View statistics related to CPU usage.</li>
-        <li><a href="/allocation">Allocation</a> - Perform the allocation </li>
-    </ul>
+
+    <div class="container">
+        <h1>The Predictive System</h1>
+        <p>This is a simple web application to predict resources based on input data.</p>
+        <p>You can navigate to the following pages:</p>
+        <button onclick="window.location.href='/predictions'">Predictions</button>
+        <button onclick="window.location.href='/allocation'">Allocation</button>
+        <button onclick="window.location.href='/realtime_stats'">Real Time</button>
+    </div>
+
 </body>
 </html>

@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Form</title>
-    <!-- Add any additional CSS or JavaScript libraries if needed -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='form.css') }}">
 </head>
 <body>
-    <h1>Enter Input Data</h1>
+    <div class="container">
+        <h1>Enter Input Data</h1>
     <form method="POST" action="/predictions">
+        <label for="process_name">Process Name</label>
+        <input type="text" name="process_name" required><br><br>
+
         <label for="memory_usage">Memory Usage:</label>
         <input type="number" name="memory_usage" required><br><br>
 
@@ -30,7 +34,10 @@
         <label for="system_network_sent_bytes">System Network Sent Bytes:</label>
         <input type="number" name="system_network_sent_bytes" required><br><br>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Predict">
+        <button type="button" onclick="window.location.href='/'">Back to Home</button>
     </form>
+    </div>
+
 </body>
 </html>

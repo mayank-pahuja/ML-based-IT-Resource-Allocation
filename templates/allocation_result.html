@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resource Allocation Result</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='allo_result.css') }}">
 </head>
 <body>
-    <h1>Resource Allocation Result</h1>
+    <div class="container">
+        <h1>Resource Allocation Result</h1>
     <p>{{ message }}</p>
-    <a href="/">Back to Home</a>
+    <button type="button" onclick="window.location.href='/'">Back to Home</button>
+    </div>
+
 </body>
 </html>

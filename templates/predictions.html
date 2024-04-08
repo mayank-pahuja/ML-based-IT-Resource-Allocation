@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predictions</title>
-    <!-- Add any additional CSS or JavaScript libraries if needed -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='predict.css') }}">
 </head>
 <body>
-    <h1>Predicted CPU Usage</h1>
-    <p>The predicted CPU usage is: {{ predicted_cpu_usage }}</p>
-    <!-- You can customize this page further with additional content or styling -->
+    <div class="container">
+        <h1>Predicted CPU Usage</h1>
+        <p>The predicted CPU usage is: {{ predicted_cpu_usage }}</p>
+        <button type="button" onclick="window.location.href='/'">Back to Home</button>
+    </div>
 </body>
 </html>
