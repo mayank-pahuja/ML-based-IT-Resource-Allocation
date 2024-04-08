@@ -1,0 +1,75 @@
+.container {
+    text-align: center;
+    background-color: #ffffff; /* Background color for the home page */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    margin-top: 50px; /* Adjust vertical margin as needed */
+}
+
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+label {
+    flex: 0 0 45%; /* Adjust as needed for label width */
+    text-align: left; /* Align labels to the left */
+    margin-bottom: 5px;
+    font-weight: bold; /* Make labels bold */
+}
+
+input[type="number"] {
+    flex: 0 0 50%; /* Adjust as needed for input width */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding doesn't affect input width */
+}
+
+input[type="submit"] {
+    flex: 1 0 100%; /* Take full width */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Button styles */
+button {
+    flex: 1 0 100%; /* Take full width */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
