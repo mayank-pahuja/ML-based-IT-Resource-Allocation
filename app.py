@@ -1,7 +1,9 @@
+import random
 import subprocess
-from flask import render_template
+from flask import jsonify, render_template
 from flask import Flask, render_template, request
 import joblib
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
 
@@ -86,6 +88,30 @@ def allocation():
         # Render the form template for GET requests
         return render_template('allocation.html')
 
+def generate_data():
+    cpu_utilization = random.randint(0, 100)
+    memory_utilization = random.randint(0, 100)
+    disk_utilization = random.randint(0, 100)
+    network_utilization = random.randint(0, 100)
+    return cpu_utilization, memory_utilization, disk_utilization, network_utilization
+
+
+# Route to fetch real-time data
+@app.route('/realtime_data')
+def realtime_data():
+    cpu, memory, disk, network = generate_data()
+    # Restructure data for Plotly
+    data = [{'resource': 'CPU', 'usage': cpu},
+            {'resource': 'Memory', 'usage': memory},
+            {'resource': 'Disk', 'usage': disk},
+            {'resource': 'Network', 'usage': network}]
+    return jsonify(data)
+
+
+# Route to render HTML page with real-time plot
+@app.route('/realtime_stats')
+def realtime_stats():
+    return render_template('real-time.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
